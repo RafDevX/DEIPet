@@ -2,6 +2,13 @@
 
 Ver o [enunciado](/enunciado.md) para a especificação.
 
+### Instalar Dependências
+
+Antes de correr o código, é imperativo que o sistema esteja equipado com Python (^3.9.3) e os respetivos _modules_:
+
+-   requests (^2.22.0)
+-   django (^3.2)
+
 ### Correr Servidor de Desenvolvimento
 
 1. Na diretoria de topo do repositório (onde está este ficheiro), correr:
