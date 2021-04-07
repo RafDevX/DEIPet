@@ -1,3 +1,5 @@
+"""View controllers for the DEIPet application"""
+
 from django.http.response import HttpResponse
 from django.shortcuts import render
 

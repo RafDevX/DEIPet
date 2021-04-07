@@ -1,4 +1,5 @@
-"""ExBIIDei URL Configuration"""
+"""ExBIIDei project-wide URL Configuration"""
+
 from django.urls import path, include
 
 urlpatterns = [
