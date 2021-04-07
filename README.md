@@ -8,8 +8,8 @@ Ver o [enunciado](/enunciado.md) para a especificação.
 
 > `python manage.py runserver`
 
-2. Aceder através de qualquer _browser_ ao endereço [http://URL]()
+2. Aceder através de qualquer _browser_ ao endereço [http://127.0.0.1:8000/deipet/]()
 
-3. Ctrl-C para terminar.
+3. Ctrl-C para terminar a execução.
 
 _Não está apto para produção, por motivos evidentes._
