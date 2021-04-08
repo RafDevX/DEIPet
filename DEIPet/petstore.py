@@ -12,7 +12,7 @@ ACCESS_TOKEN = settings.PETSTORE_ACCESS_TOKEN
 
 def get_pets(limit: int = 30, offset: int = 0) -> list[dict]:
     r = requests.get(
-        BASE_URL + ENDPOINTS["get_pets"],
+        ENDPOINTS["get_pets"],
         params={
             "limit": limit,
             "offset": offset,
@@ -28,7 +28,7 @@ def get_pets(limit: int = 30, offset: int = 0) -> list[dict]:
 
 def create_pet(name: str, imageUrls: list) -> dict:
     r = requests.post(
-        BASE_URL + ENDPOINTS["create_pet"],
+        ENDPOINTS["create_pet"],
         json={"name": name, "imageUrls": imageUrls},
         headers={"Authorization": "Bearer " + ACCESS_TOKEN},
     )
@@ -42,7 +42,7 @@ def create_pet(name: str, imageUrls: list) -> dict:
 
 def delete_pet(id: int) -> bool:
     r = requests.delete(
-        BASE_URL + (ENDPOINTS["delete_pet"] % id),
+        ENDPOINTS["delete_pet"] % id,
         headers={"Authorization": "Bearer " + ACCESS_TOKEN},
     )
     if not r.ok:
@@ -51,7 +51,7 @@ def delete_pet(id: int) -> bool:
 
 
 def get_pet_info(id: int) -> dict:
-    r = requests.get(BASE_URL + (ENDPOINTS["get_pet_info"] % id))
+    r = requests.get(ENDPOINTS["get_pet_info"] % id)
     if r.ok:
         try:
             return r.json()

@@ -21,6 +21,7 @@ PETSTORE_ACCESS_TOKEN = os.getenv(
 
 INSTALLED_APPS = [
     "DEIPet",
+    "django.contrib.staticfiles",
 ]
 
 MIDDLEWARE = [

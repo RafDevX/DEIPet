@@ -1,0 +1,25 @@
+{% extends 'DEIPet/base.html' %}
+
+{% block title %}Animais de Estimação{% endblock %}
+
+{% block content %}
+Here's what I got:
+<ul>
+	{% for pet in pets %}
+	<li>
+		<ul>
+			<li><b>Id: </b>{{ pet.id }}</li>
+			<li><b>Name: </b>{{ pet.name }}</li>
+			<li><b>Images:</b></li>
+			<li>
+				<ol>
+					{% for img in pet.imageUrls %}
+					<li>{{ img }}</li>
+					{% endfor %}
+				</ol>
+			</li>
+		</ul>
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}

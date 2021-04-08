@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<html lang="pt_PT">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" href="{% static 'DEIPet/favicon/favicon.ico' %}">
+	<link rel="icon" type="image/png" sizes="512x512" href="{% static 'DEIPet/favicon/android-chrome-512x512.png' %}">
+	<link rel="icon" type="image/png" sizes="192x192" href="{% static 'DEIPet/favicon/android-chrome-192x192.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'DEIPet/favicon/favicon-32x32.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'DEIPet/favicon/favicon-16x16.png' %}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'DEIPet/favicon/apple-touch-icon.png' %}">
+
+	<link rel="manifest" href="{% static 'DEIPet/manifest.webmanifest' %}">
+
+	<title>{% block title %}{% endblock %} | DEIPet
+	</title>
+</head>
+
+<body>
+	{% block content %}{% endblock %}
+</body>
+
+</html>
