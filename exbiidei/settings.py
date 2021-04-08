@@ -1,9 +1,23 @@
 """Project-wide settings"""
 
+import os
+
 DEBUG = True  # False
 ALLOWED_HOSTS = [".localhost", "127.0.0.1", "[::1]"]
 
 SECRET_KEY = "eZD1a/GdFH2gIaKnqeAXgBtZZrwVoqA84mtJ6ZdUaZvjjECb6rdWSNAWTx1sHAYK"
+
+PETSTORE_BASE_URL = "https://example.com"
+PETSTORE_ENDPOINTS = {
+    "get_pets": "/pets",
+    "create_pet": "/pets",
+    "delete_pet": "/pets/%d",
+    "get_pet_info": "/pets/%d",
+}
+PETSTORE_ACCESS_TOKEN = os.getenv(
+    "PETSTORE_ACCESS_TOKEN",
+    "***HIDDEN***",
+)  # (the token would not be here in a real project, this is just to make testing easier for the jury)
 
 INSTALLED_APPS = [
     "DEIPet",
