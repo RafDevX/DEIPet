@@ -11,6 +11,8 @@ ACCESS_TOKEN = settings.PETSTORE_ACCESS_TOKEN
 
 
 def get_pets(limit: int = 30, offset: int = 0) -> list[dict]:
+    """Fetch a subset of the pets in the Petstore."""
+
     r = requests.get(
         ENDPOINTS["get_pets"],
         params={
@@ -26,7 +28,15 @@ def get_pets(limit: int = 30, offset: int = 0) -> list[dict]:
     raise PetstoreError
 
 
+def get_pets_page(page: int, page_size: int) -> list[dict]:
+    """Shorthand to fetch a specific page of pets from the Petstore."""
+
+    return get_pets(page_size, page_size * (page - 1))
+
+
 def create_pet(name: str, imageUrls: list) -> dict:
+    """Create a new pet in the Petstore."""
+
     r = requests.post(
         ENDPOINTS["create_pet"],
         json={"name": name, "imageUrls": imageUrls},
@@ -41,6 +51,8 @@ def create_pet(name: str, imageUrls: list) -> dict:
 
 
 def delete_pet(id: int) -> bool:
+    """Delete a pet from the Petstore."""
+
     r = requests.delete(
         ENDPOINTS["delete_pet"] % id,
         headers={"Authorization": "Bearer " + ACCESS_TOKEN},
@@ -51,6 +63,8 @@ def delete_pet(id: int) -> bool:
 
 
 def get_pet_info(id: int) -> dict:
+    """Get information about a specific pet in the Petstore."""
+
     r = requests.get(ENDPOINTS["get_pet_info"] % id)
     if r.ok:
         try:
@@ -61,4 +75,6 @@ def get_pet_info(id: int) -> dict:
 
 
 class PetstoreError(Exception):
+    """General exception for everything that goes wrong communicating with the Petstore."""
+
     pass

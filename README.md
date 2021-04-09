@@ -23,4 +23,10 @@ _Não está apto para produção, por motivos evidentes._
 
 ---
 
+## Escolhas de Implementação
+
+-   Ao contrário do que é usual, a API Petstore disponibilizada não expõe nenhuma forma de determinar _quantos_ animais de estimação existem no total. Assim, implementando paginação na lista de animais, a única maneira de mostrar ao utilizador quantas páginas há ao todo a seria obter todos e contá-los ­— o que claramente é contra o propósito da própria Petstore fazer paginação e não seria escalável. Assim, foi tomada a decisão de mostrar apenas botões de navegação, _sem_ a informação da quantidade total.
+
+---
+
 <b id="fn1"><sup>1</sup></b> Visto esta ser a única aplicação, para efeitos de conveniência, foi tomada a liberdade de criar um _redirect_, pelo que basta aceder ao endereço [http://127.0.0.1:8000]() sem qualquer _path_. [↩](#a1)

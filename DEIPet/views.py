@@ -6,34 +6,32 @@ from django.shortcuts import render
 from . import petstore
 
 
-def list_pets(request: HttpRequest) -> HttpResponse:
-    # TODO: pagination
-    # GET params examples:
-    #   - page=1
-    #   - sortBy=name-asc, sortBy=id, sortBy=name-bad
-    page = 1
+def list_pets(
+    request: HttpRequest, page=1, page_size=30, sort_by="id", sort_dir="asc"
+) -> HttpResponse:
+    """Show a page that displays a list of pets in a user-intuitive manner."""
+
     possible_sorts, possible_dirs = ("id", "name"), ("asc", "dsc")
-    sort_by, sort_dir = possible_sorts[0], possible_dirs[0]
-    if "sortBy" in request.GET:
-        sort_inp = request.GET["sortBy"]
 
-        if sort_inp in possible_sorts:
-            sort_by = sort_inp
-        elif request.GET["sortBy"][:-4] in possible_sorts:
-            sort_by = sort_inp[:-4]
+    page = page if page >= 1 else 1
+    page_size = page_size if 1 <= page_size <= 50 else 30
+    sort_by = sort_by if sort_by in possible_sorts else possible_sorts[0]
+    sort_dir = sort_dir if sort_dir in possible_dirs else possible_dirs[0]
 
-        if request.GET["sortBy"][-3:] in possible_dirs:
-            sort_dir = sort_inp[-3:]
-
-    normalized_query = "?page=" + str(page) + "&sortBy=" + sort_by + "-" + sort_dir
+    # get an extra item to see if next page exists
+    pets = petstore.get_pets_page(page, page_size + 1)
+    prev_page_exists = page > 1
+    next_page_exists = len(pets) > page_size
+    pets = pets[:-1]
 
     return render(
         request,
         "DEIPet/index.html",
         {
-            "pets": sorted(
-                petstore.get_pets(), key=lambda k: k[sort_by], reverse=sort_dir == "dsc"
-            ),
+            "pets": sorted(pets, key=lambda k: k[sort_by], reverse=sort_dir == "dsc"),
+            "page": page,
+            "prev_page_exists": prev_page_exists,
+            "next_page_exists": next_page_exists,
             "sort_by": sort_by,
             "sort_dir": sort_dir,
         },
