@@ -17,8 +17,8 @@
 		<tbody>
 			{% for pet in pets %}
 			<tr class="fake-anchor" data-fa-href="https://google.com">
-				<td {% if sort_by == "id" %}class="fw-bold" {% endif %}>{{ pet.id }}</th>
-				<td {% if sort_by == "name" %}class="fw-bold" {% endif %}>{{ pet.name }}</td>
+				<th scope="row">{{ pet.id }}</th>
+				<td>{{ pet.name }}</td>
 				<td>
 					<img src="{{ pet.imageUrls.0 }}" class="rounded pet-list-image" alt="{{ pet.name }}">
 				</td>
