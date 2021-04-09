@@ -45,8 +45,8 @@
 					{% with url_name=request.resolver_match.url_name %}
 					{# unfortunately can't make this a loop as django doesn't support in-template definition of lists #}
 					<li class="nav-item">
-						<a class="nav-link{% if url_name == 'list-pets' %} active{% endif %}"
-							href="{% url 'DEIPet:list-pets' %}">
+						<a class="nav-link{% if url_name == 'list-pets' or url_name == 'list-pets-start' %} active{% endif %}"
+							href="{% url 'DEIPet:list-pets-start' %}">
 							Animais de Estimação
 						</a>
 					</li>

@@ -8,6 +8,7 @@ from . import views
 app_name = "DEIPet"
 urlpatterns = [
     path("", lambda r: redirect("DEIPet:list-pets"), name="index"),
-    path("pets", views.list_pets, name="list-pets"),
+    path("pets", views.list_pets, name="list-pets-start"),
+    path("pets/page-<int:page>-size-<int:size>", views.list_pets, name="list-pets"),
     path("create-pet", views.create_pet, name="create-pet"),
 ]
