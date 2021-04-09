@@ -1,11 +1,13 @@
 """URL configuration for the DEIPet application"""
 
+from django.shortcuts import redirect
 from django.urls import path
 
 from . import views
 
 app_name = "DEIPet"
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("", lambda r: redirect("DEIPet:list-pets"), name="index"),
+    path("pets", views.list_pets, name="list-pets"),
     path("create-pet", views.create_pet, name="create-pet"),
 ]

@@ -24,3 +24,7 @@ img.pet-list-image {
 	height: 5em;
 	width: auto;
 }
+
+.fake-anchor {
+	cursor: pointer;
+}
