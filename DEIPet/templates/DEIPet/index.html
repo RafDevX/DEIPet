@@ -3,23 +3,28 @@
 {% block title %}Animais de Estimação{% endblock %}
 
 {% block content %}
-Here's what I got:
-<ul>
-	{% for pet in pets %}
-	<li>
-		<ul>
-			<li><b>Id: </b>{{ pet.id }}</li>
-			<li><b>Name: </b>{{ pet.name }}</li>
-			<li><b>Images:</b></li>
-			<li>
-				<ol>
-					{% for img in pet.imageUrls %}
-					<li>{{ img }}</li>
-					{% endfor %}
-				</ol>
-			</li>
-		</ul>
-	</li>
-	{% endfor %}
-</ul>
+<h1>Animais de Estimação</h1>
+
+<div class="table-responsive">
+	<table class="table table-striped table-hover align-middle">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Nome</th>
+				<th scope="col">Imagem</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for pet in pets %}
+			<tr>
+				<th scope="row">{{ pet.id }}</th>
+				<td>{{ pet.name }}</td>
+				<td>
+					<img src="{{ pet.imageUrls.0 }}" class="rounded pet-list-image" alt="{{ pet.name }}">
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
 {% endblock %}

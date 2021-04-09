@@ -8,6 +8,7 @@
 body {
 	overflow-wrap: break-word;
 	font-family: 'Roboto', sans-serif, 'Apple Color Emoji' !important;
+	text-align: justify;
 }
 
 code {
@@ -16,5 +17,10 @@ code {
 
 .navbar-brand img {
 	height: 2em;
+	width: auto;
+}
+
+img.pet-list-image {
+	height: 5em;
 	width: auto;
 }
