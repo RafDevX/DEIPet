@@ -68,7 +68,9 @@ def create_pet(request: HttpRequest) -> HttpResponse:
         else:
             try:
                 new_pet = petstore.create_pet(pet_name, pet_image_urls)
-                return redirect("DEIPet:pet-info", id=new_pet["id"])
+                return redirect(
+                    "DEIPet:pet-info-postaction", id=new_pet["id"], status="added"
+                )
             except petstore.PetstoreError:
                 error_msg = "Ocorreu um erro a criar o animal de estimação. Por favor tente novamente."
 
