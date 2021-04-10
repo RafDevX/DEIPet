@@ -14,17 +14,17 @@
 		<label id="petImageUrlsLabel">Imagens</label>
 		<textarea class="d-none" name="petImageUrls" id="petImageUrlsRealInput"
 			required>{{ pet_image_urls|default:''|join:newline }}</textarea>
-		<div class="container-md border border-dark border-3 bg-dark rounded">
+		<div class="container-md border border-light border-3 rounded shadow">
 			<div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 justify-content-around">
 				{% for _ in '1234567'|make_list %}
-				<div class="col">
-					<div class="card border-0 m-3">
+				<div class="col-auto">
+					<div class="card m-3 shadow">
 						<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png"
 							class="card-img-top" alt="">
 						<div class="card-body">
 							<div class="btn-group highlight-middle-btn" role="group" aria-label="Controlos">
 								<a href="#" class="btn btn-outline-secondary">«</a>
-								<a href="#" class="btn btn-outline-danger z-1">Apagar</a>
+								<a href="#" class="btn btn-outline-danger">✖</a>
 								<a href="#" class="btn btn-outline-secondary">»</a>
 							</div>
 						</div>
