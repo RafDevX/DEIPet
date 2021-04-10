@@ -4,20 +4,17 @@
 {% block title %}Adicionar Novo Animal{% endblock %}
 
 {% block content %}
-<div class="text-center">
-	<h1>Adicionar Novo Animal</h1>
-	<form method="post" action="{% url 'DEIPet:create-pet' %}" autocomplete="off">
-		<div class="form-floating mb-3">
-			<input type="text" class="form-control" id="petName" name="petName" placeholder="Bobi"
-				aria-describedby="petNameLabel" required value="{{ pet_name|default:'' }}">
-			<label for="petName" id="petNameLabel">Nome</label>
-		</div>
-		<div id="petImageUrlsFakeInputs">
-			<label id="petImageUrlsLabel">URLs de Imagens</label>
-			<textarea class="d-none" name="petImageUrls" id="petImageUrlsRealInput"
-				required>{{ pet_image_urls|default:''|join:newline }}</textarea>
-		</div>
-	</form>
-	<script src="{% static 'DEIPet/scripts/create_pet.js' %}"></script>
-</div>
+<form method="post" action="{% url 'DEIPet:create-pet' %}" autocomplete="off">
+	<div class="form-floating mb-3">
+		<input type="text" class="form-control" id="petName" name="petName" placeholder="Bobi"
+			aria-describedby="petNameLabel" required value="{{ pet_name|default:'' }}">
+		<label for="petName" id="petNameLabel">Nome</label>
+	</div>
+	<div id="petImageUrlsFakeInputs">
+		<label id="petImageUrlsLabel">URLs de Imagens</label>
+		<textarea class="d-none" name="petImageUrls" id="petImageUrlsRealInput"
+			required>{{ pet_image_urls|default:''|join:newline }}</textarea>
+	</div>
+</form>
+<script src="{% static 'DEIPet/scripts/create_pet.js' %}"></script>
 {% endblock %}

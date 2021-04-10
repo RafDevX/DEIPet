@@ -62,7 +62,8 @@
 		</div>
 	</nav>
 
-	<div class="main-content mx-3">
+	<div class="main-content mx-3 text-center">
+		<h1>{% block content_title %}{% endblock %}</h1>
 		{% block content %}{% endblock %}
 	</div>
 

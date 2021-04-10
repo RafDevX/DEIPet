@@ -3,107 +3,103 @@
 {% block title %}Animais de Estimação{% endblock %}
 
 {% block content %}
-<div class="text-center">
-	<h1>Animais de Estimação</h1>
-
-	<p>Abaixo encontra-se uma tabela com os animais de estimação de alunos e professores do Departamento de Engenharia
-		Informática do Instituto Superior Técnico.
-	</p>
+<p>Abaixo encontra-se uma tabela com os animais de estimação de alunos e professores do Departamento de Engenharia
+	Informática do Instituto Superior Técnico.
+</p>
 
 
-	<div class="table-responsive">
-		<table class="table table-striped table-hover align-middle w-auto mx-auto pet-list-table">
-			<thead>
-				<tr>
-					<th scope="col" class="col-4">ID</th>
-					<th scope="col" class="col-4">Nome</th>
-					<th scope="col" class="col-4">Imagem</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% if not error %}
-				{% for pet in pets %}
-				<tr class="fake-anchor" data-fa-href={% url 'DEIPet:pet-info' pet.id %}>
-					<th scope="row">{{ pet.id }}</th>
-					<td>{{ pet.name }}</td>
-					<td>
-						<img src="{{ pet.imageUrls.0 }}" class="rounded pet-list-image" alt="{{ pet.name }}">
-					</td>
-				</tr>
-				{% empty %}
-				<tr>
-					<td colspan="3" class="fst-italic text-muted">
-						Não foi encontrado nenhum animal de estimação.
-					</td>
-				</tr>
-				{% endfor %}
-				{% else %}
-				<tr>
-					<td colspan="3" class="fst-italic text-muted">
-						Ocorreu um erro desconhecido. Por favor tente mais tarde.
-					</td>
-				</tr>
-				{% endif %}
-			</tbody>
-		</table>
+<div class="table-responsive">
+	<table class="table table-striped table-hover align-middle w-auto mx-auto pet-list-table">
+		<thead>
+			<tr>
+				<th scope="col" class="col-4">ID</th>
+				<th scope="col" class="col-4">Nome</th>
+				<th scope="col" class="col-4">Imagem</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if not error %}
+			{% for pet in pets %}
+			<tr class="fake-anchor" data-fa-href={% url 'DEIPet:pet-info' pet.id %}>
+				<th scope="row">{{ pet.id }}</th>
+				<td>{{ pet.name }}</td>
+				<td>
+					<img src="{{ pet.imageUrls.0 }}" class="rounded pet-list-image" alt="{{ pet.name }}">
+				</td>
+			</tr>
+			{% empty %}
+			<tr>
+				<td colspan="3" class="fst-italic text-muted">
+					Não foi encontrado nenhum animal de estimação.
+				</td>
+			</tr>
+			{% endfor %}
+			{% else %}
+			<tr>
+				<td colspan="3" class="fst-italic text-muted">
+					Ocorreu um erro desconhecido. Por favor tente mais tarde.
+				</td>
+			</tr>
+			{% endif %}
+		</tbody>
+	</table>
 
-		<nav aria-label="Paginação">
-			<ul class="pagination justify-content-center">
-				{% if prev_page_exists %}
-				<li class="page-item">
-					<a class="page-link" href="{% url 'DEIPet:list-pets' page|add:"-1" pg_size %}">
-						Anterior
-					</a>
-				</li>
-				{% else %}
-				<li class="page-item disabled">
-					<span class="page-link">Anterior</span>
-				</li>
-				{% endif %}
+	<nav aria-label="Paginação">
+		<ul class="pagination justify-content-center">
+			{% if prev_page_exists %}
+			<li class="page-item">
+				<a class="page-link" href="{% url 'DEIPet:list-pets' page|add:"-1" pg_size %}">
+					Anterior
+				</a>
+			</li>
+			{% else %}
+			<li class="page-item disabled">
+				<span class="page-link">Anterior</span>
+			</li>
+			{% endif %}
 
-				{% for i in pg_range %}
-				{% if forloop.first and i != 1 %}
-				<li class="page-item">
-					<a class="page-link" href={% url 'DEIPet:list-pets' 1 pg_size%}>1</a>
-				</li>
-				<li class="page-item disabled">
-					<span class="page-link">…</span>
-				</li>
-				{% endif %}
-				{% if i == page %}
-				<li class="page-item active">
-					<span class="page-link fw-bold">{{ i }}</span>
-				</li>
-				{% else %}
-				<li class="page-item">
-					<a class="page-link" href="{% url 'DEIPet:list-pets' i pg_size %}">
-						{{ i }}
-					</a>
-				</li>
-				{% endif %}
-				{% endfor %}
+			{% for i in pg_range %}
+			{% if forloop.first and i != 1 %}
+			<li class="page-item">
+				<a class="page-link" href={% url 'DEIPet:list-pets' 1 pg_size%}>1</a>
+			</li>
+			<li class="page-item disabled">
+				<span class="page-link">…</span>
+			</li>
+			{% endif %}
+			{% if i == page %}
+			<li class="page-item active">
+				<span class="page-link fw-bold">{{ i }}</span>
+			</li>
+			{% else %}
+			<li class="page-item">
+				<a class="page-link" href="{% url 'DEIPet:list-pets' i pg_size %}">
+					{{ i }}
+				</a>
+			</li>
+			{% endif %}
+			{% endfor %}
 
-				{% if next_page_exists %}
-				<li class="page-item">
-					<a class="page-link" href="{% url 'DEIPet:list-pets' page|add:'1' pg_size %}">
-						{{ page|add:'1' }}
-					</a>
-				</li>
-				<li class="page-item disabled">
-					<span class="page-link">...</span>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="{% url 'DEIPet:list-pets' page|add:'1' pg_size %}">
-						Seguinte
-					</a>
-				</li>
-				{% else %}
-				<li class="page-item disabled">
-					<span class="page-link">Seguinte</span>
-				</li>
-				{% endif %}
-			</ul>
-		</nav>
-	</div>
+			{% if next_page_exists %}
+			<li class="page-item">
+				<a class="page-link" href="{% url 'DEIPet:list-pets' page|add:'1' pg_size %}">
+					{{ page|add:'1' }}
+				</a>
+			</li>
+			<li class="page-item disabled">
+				<span class="page-link">...</span>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="{% url 'DEIPet:list-pets' page|add:'1' pg_size %}">
+					Seguinte
+				</a>
+			</li>
+			{% else %}
+			<li class="page-item disabled">
+				<span class="page-link">Seguinte</span>
+			</li>
+			{% endif %}
+		</ul>
+	</nav>
 </div>
 {% endblock %}
