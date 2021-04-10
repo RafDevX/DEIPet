@@ -34,3 +34,15 @@ img.pet-list-image {
 .fake-anchor {
 	cursor: pointer;
 }
+
+.btn-group.highlight-middle-btn :first-child, .btn-group.highlight-middle-btn :last-child {
+	z-index: 1 !important;
+}
+
+.btn-group.highlight-middle-btn :not(:first-child):not(:last-child) {
+	z-index: 2 !important;
+}
+
+.btn-group.highlight-middle-btn :first-child:hover, .mid :last-child:hover {
+	z-index: 3 !important;
+}
