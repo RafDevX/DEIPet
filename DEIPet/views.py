@@ -23,7 +23,7 @@ def list_pets(request: HttpRequest, page=1, pg_size=30) -> HttpResponse:
 
     return render(
         request,
-        "DEIPet/index.html",
+        "DEIPet/list_pets.html",
         {
             "pets": pets,
             "page": page,
