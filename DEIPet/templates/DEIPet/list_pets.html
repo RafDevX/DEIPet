@@ -21,6 +21,7 @@
 				</tr>
 			</thead>
 			<tbody>
+				{% if not error %}
 				{% for pet in pets %}
 				<tr class="fake-anchor" data-fa-href={% url 'DEIPet:pet-info' pet.id %}>
 					<th scope="row">{{ pet.id }}</th>
@@ -31,11 +32,18 @@
 				</tr>
 				{% empty %}
 				<tr>
-					<td colspan="3" class="fst-ital text-muted">
+					<td colspan="3" class="fst-italic text-muted">
 						Não foi encontrado nenhum animal de estimação.
 					</td>
 				</tr>
 				{% endfor %}
+				{% else %}
+				<tr>
+					<td colspan="3" class="fst-italic text-muted">
+						Ocorreu um erro desconhecido. Por favor tente mais tarde.
+					</td>
+				</tr>
+				{% endif %}
 			</tbody>
 		</table>
 
