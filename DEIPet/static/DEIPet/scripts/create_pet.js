@@ -3,9 +3,22 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const container = document.getElementById("petImageUrlsContainer");
 	const textarea = document.getElementById("petImageUrlsRealInput");
-	const images = [];
+	const actual_images = [];
 	const tooltips = [];
 	let busy = true;
+
+	const images = new Proxy(actual_images, {
+		deleteProperty: function (target, prop) {
+			delete target[prop];
+			updateTextarea();
+			return true;
+		},
+		set: function (target, prop, val) {
+			target[prop] = val;
+			updateTextarea();
+			return true;
+		},
+	});
 
 	for (let line of textarea.value.split("\n")) {
 		tryAddImage(line);
@@ -31,82 +44,88 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 		container.textContent = "";
 		for (let i = 0; i < images.length; i++) {
-			const url = images[i];
-			const col = document.createElement("div");
-			col.className = "col-auto d-flex align-items-stretch";
-			const card = document.createElement("div");
-			card.className = "card m-3 shadow";
-			const img = document.createElement("img");
-			img.src = url;
-			img.className = "card-img-top";
-			img.alt = `#${i + 1}`;
-			const body = document.createElement("div");
-			body.className = "card-body";
-			const btngroup = document.createElement("div");
-			btngroup.className = "btn-group highlight-middle-btn";
-			btngroup.role = "group";
-			for (let j = 0; j < 3; j++) {
-				const btn = document.createElement("button");
-				btn.type = "button";
-				btn.className =
-					"btn btn-outline-" +
-					[
-						i > 0 ? "secondary" : "primary disabled",
-						"danger",
-						"secondary" +
-							(i + 1 == images.length ? " disabled" : ""),
-					][j];
-				btn.innerText = [i > 0 ? "❰" : "★", "✖", "❱"][j];
-				//btn.dataset.bsToggle = "tooltip";
-				btn.title = {
-					"★": "Imagem Principal",
-					"❰": "Para a Esquerda",
-					"✖": "Apagar Imagem",
-					"❱": "Para a Direita",
-				}[btn.innerText];
-				tooltips.push(new bootstrap.Tooltip(btn, { trigger: "hover" }));
-				if (btn.innerText != "★") {
-					btn.addEventListener(
-						"click",
-						{
-							"❰": async () => {
-								if (busy) return;
-								busy = true;
-								[images[i], images[i - 1]] = [
-									images[i - 1],
-									images[i],
-								];
-								await rebuildContainer();
-								busy = false;
-							},
-							"❱": async () => {
-								if (busy) return;
-								busy = true;
-								[images[i], images[i + 1]] = [
-									images[i + 1],
-									images[i],
-								];
-								await rebuildContainer();
-								busy = false;
-							},
-							"✖": async () => {
-								if (busy) return;
-								busy = true;
-								images.splice(i, 1);
-								await rebuildContainer();
-								busy = false;
-							},
-						}[btn.innerText],
-						{ passive: true, once: true }
-					);
-				}
-				btngroup.appendChild(btn);
-			}
-			body.appendChild(btngroup);
-			card.appendChild(img);
-			card.appendChild(body);
-			col.appendChild(card);
-			container.appendChild(col);
+			await createCard(i);
 		}
+	}
+
+	async function createCard(i) {
+		const col = document.createElement("div");
+		col.className = "col-auto d-flex align-items-stretch";
+		const card = document.createElement("div");
+		card.className = "card m-3 shadow";
+		const img = document.createElement("img");
+		img.src = images[i];
+		img.className = "card-img-top";
+		img.alt = `#${i + 1}`;
+		const body = document.createElement("div");
+		body.className = "card-body";
+		const btngroup = document.createElement("div");
+		btngroup.className = "btn-group highlight-middle-btn";
+		btngroup.role = "group";
+		for (let j = 0; j < 3; j++) {
+			const btn = document.createElement("button");
+			btn.type = "button";
+			btn.className =
+				"btn btn-outline-" +
+				[
+					i > 0 ? "secondary" : "primary disabled",
+					"danger",
+					"secondary" + (i + 1 == images.length ? " disabled" : ""),
+				][j];
+			btn.innerText = [i > 0 ? "❰" : "★", "✖", "❱"][j];
+			//btn.dataset.bsToggle = "tooltip";
+			btn.title = {
+				"★": "Imagem Principal",
+				"❰": "Para a Esquerda",
+				"✖": "Apagar Imagem",
+				"❱": "Para a Direita",
+			}[btn.innerText];
+			tooltips.push(new bootstrap.Tooltip(btn, { trigger: "hover" }));
+			if (btn.innerText != "★") {
+				btn.addEventListener(
+					"click",
+					{
+						"❰": async () => {
+							if (busy) return;
+							busy = true;
+							[images[i], images[i - 1]] = [
+								images[i - 1],
+								images[i],
+							];
+							await rebuildContainer();
+							busy = false;
+						},
+						"❱": async () => {
+							if (busy) return;
+							busy = true;
+							[images[i], images[i + 1]] = [
+								images[i + 1],
+								images[i],
+							];
+							await rebuildContainer();
+							busy = false;
+						},
+						"✖": async () => {
+							if (busy) return;
+							busy = true;
+							images.splice(i, 1);
+							await rebuildContainer();
+							busy = false;
+						},
+					}[btn.innerText],
+					{ passive: true, once: true }
+				);
+			}
+			btngroup.appendChild(btn);
+		}
+		body.appendChild(btngroup);
+		card.appendChild(img);
+		card.appendChild(body);
+		col.appendChild(card);
+		container.appendChild(col);
+	}
+
+	function updateTextarea() {
+		textarea.value = images.join("\n");
 	}
 });
