@@ -2,8 +2,9 @@
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.templatetags.static import static
 
-from . import petstore
+from . import petstore, aux
 
 
 def list_pets(request: HttpRequest, page=1, pg_size=30) -> HttpResponse:
@@ -18,13 +19,19 @@ def list_pets(request: HttpRequest, page=1, pg_size=30) -> HttpResponse:
     try:
         pets = petstore.get_pets_page(page, pg_size + 1)
         prev_page_exists = page > 1
-        next_page_exists = len(pets) > pg_size
-        pets = pets[:-1]
+        if len(pets) > pg_size:
+            next_page_exists = True
+            pets = pets[:-1]
     except petstore.PetstoreError:
         error = True
 
     # don't cut the page range at the beginning for a single number (1 ... 3 4)
     pg_range = range(page - 2 if page >= 6 else 1, page + 1)
+
+    # try to stop xss
+    fallback_image = static("DEIPet/images/fallback.png")
+    for pet in pets:
+        pet["imageUrls"] = aux.filter_url_list(pet["imageUrls"], fallback_image)
 
     return render(
         request,
