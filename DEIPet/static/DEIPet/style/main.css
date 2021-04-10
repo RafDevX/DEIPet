@@ -20,6 +20,10 @@ code {
 	width: auto;
 }
 
+.pet-list-table {
+	min-width: 60%;
+}
+
 img.pet-list-image {
 	height: 5em;
 	width: auto;

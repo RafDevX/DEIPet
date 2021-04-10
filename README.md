@@ -29,6 +29,9 @@ _Não está apto para produção, por motivos evidentes._
 
 -   Pela mesma razão, não foi implementada uma funcionalidade de pesquisa nem de ordenação, pois tais operações apenas poderiam ser feitas por página em vez de no geral, o que seria pouco útil (ou até enganador) para o utilizador.
 
+-   De notar que alguns animais podem aparecer repetidos em páginas diferentes pelo que APARENTA<sup id="a2">[2](#fn2)</sup> ser um lapso na implementação da Petstore: o parâmetro `offset` afeta os IDs e não o número real de animais existentes, não contemplando que alguns IDs podem ter sido apagados. Por exemplo, havendo animais com IDs `[0 1 2 3 50]` (tendo os animais `4-49` sendo apagados), o `#50` é listado tanto com `(limit=20, offset=0)` (primeira página) como com `(limit=20, offset=20)` (segunda página).
+
 ---
 
 <b id="fn1"><sup>1</sup></b> Visto esta ser a única aplicação, para efeitos de conveniência, foi tomada a liberdade de criar um _redirect_, pelo que basta aceder ao endereço [http://127.0.0.1:8000]() sem qualquer _path_. [↩](#a1)
+<b id="fn2"><sup>2</sup></b> Pouco tempo foi gasto a testar esta teoria; no entanto, é pouco provável tratar-se de um erro na presente implementação devido à sua simplicidade. [↩](#a2)
