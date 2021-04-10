@@ -53,20 +53,16 @@ document.addEventListener("DOMContentLoaded", () => {
 					[
 						i > 0 ? "secondary" : "primary disabled",
 						"danger",
-						i + 1 < images.length ? "secondary" : "success",
+						"secondary" +
+							(i + 1 == images.length ? " disabled" : ""),
 					][j];
-				btn.innerText = [
-					i > 0 ? "❰" : "★",
-					"✖",
-					i + 1 < images.length ? "❱" : "+",
-				][j];
+				btn.innerText = [i > 0 ? "❰" : "★", "✖", "❱"][j];
 				//btn.dataset.bsToggle = "tooltip";
 				btn.title = {
 					"★": "Imagem Principal",
-					"❰": "Trocar à Esquerda",
+					"❰": "Para a Esquerda",
 					"✖": "Apagar Imagem",
-					"❱": "Trocar à Direita",
-					"+": "Adicionar Nova Imagem",
+					"❱": "Para a Direita",
 				}[btn.innerText];
 				tooltips.push(new bootstrap.Tooltip(btn, { trigger: "hover" }));
 				if (btn.innerText != "★") {
@@ -99,9 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
 								images.splice(i, 1);
 								await rebuildContainer();
 								busy = false;
-							},
-							"+": async () => {
-								console.log("plus");
 							},
 						}[btn.innerText],
 						{ passive: true, once: true }

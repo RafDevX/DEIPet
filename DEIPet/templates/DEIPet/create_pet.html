@@ -5,10 +5,12 @@
 
 {% block content %}
 <form method="post" action="{% url 'DEIPet:create-pet' %}" autocomplete="off">
-	<div class="form-floating mb-3">
-		<input type="text" class="form-control" id="petName" name="petName" placeholder="Bobi"
-			aria-describedby="petNameLabel" required value="{{ pet_name|default:'' }}">
-		<label for="petName" id="petNameLabel">Nome</label>
+	<div class="d-flex justify-content-center mb-3">
+		<div class="form-floating w-auto">
+			<input type="text" class="form-control w-auto" id="petName" name="petName" placeholder="Bobi"
+				aria-describedby="petNameLabel" required value="{{ pet_name|default:'' }}">
+			<label for="petName" id="petNameLabel">Nome</label>
+		</div>
 	</div>
 	<div>
 		<label id="petImageUrlsLabel">Imagens</label>
