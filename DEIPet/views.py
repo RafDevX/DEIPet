@@ -1,5 +1,7 @@
 """View controllers for the DEIPet application"""
 
+from typing import Optional
+
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.templatetags.static import static
@@ -49,7 +51,7 @@ def list_pets(request: HttpRequest, page=1, pg_size=30) -> HttpResponse:
     )
 
 
-def pet_info(request: HttpRequest, id: int):
+def pet_info(request: HttpRequest, id: int, status: Optional[str] = None):
     return HttpResponse("hello")
 
 

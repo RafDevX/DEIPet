@@ -34,7 +34,7 @@ def get_pets_page(page: int, page_size: int) -> list[dict]:
     return get_pets(page_size, page_size * (page - 1))
 
 
-def create_pet(name: str, imageUrls: list) -> dict:
+def create_pet(name: str, imageUrls: list[str]) -> dict:
     """Create a new pet in the Petstore."""
 
     r = requests.post(

@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			const p = document.createElement("p");
 			p.className = "text-muted fst-italic w-100 m-3";
 			p.innerText =
-				"Por favor adicione pelo menos uma imagem usando o botão abaixo.";
+				"Por favor adicione pelo menos duas imagens usando o botão abaixo.";
 			container.appendChild(p);
 		}
 	}
@@ -150,6 +150,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function updateForm() {
 		textarea.value = images.join("\n");
+		textarea.setCustomValidity(
+			images.length < 2 ? "São necessárias pelo menos duas imagens!" : ""
+		);
 		submitBtn.disabled = !form.checkValidity();
 	}
 
