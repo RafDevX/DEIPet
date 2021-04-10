@@ -46,4 +46,15 @@ def pet_info(request: HttpRequest, id: int):
 
 
 def create_pet(request: HttpRequest) -> HttpResponse:
-    return HttpResponse("hi")
+    "Show a page with a form to create a new pet and handle responses to it."
+
+    error_msg, pet_name = None, None
+
+    return render(
+        request,
+        "DEIPet/create_pet.html",
+        {
+            "error_msg": error_msg,
+            "pet_name": pet_name,
+        },
+    )

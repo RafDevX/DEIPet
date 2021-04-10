@@ -13,3 +13,7 @@ urlpatterns = [
     path("pet/<int:id>", views.pet_info, name="pet-info"),
     path("create-pet", views.create_pet, name="create-pet"),
 ]
+# TODO: maybe pass <div textcenter to main.css
+# TODO: handler404
+# TODO: page size
+# TODO: required/validation in create_pet.html

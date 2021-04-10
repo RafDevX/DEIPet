@@ -1,0 +1,21 @@
+{% extends 'DEIPet/base.html' %}
+{% load static %}
+
+{% block title %}Adicionar Novo Animal{% endblock %}
+
+{% block content %}
+<div class="text-center">
+	<h1>Adicionar Novo Animal</h1>
+	<form method="post" action="{% url 'DEIPet:create-pet' %}" autocomplete="off">
+		<div class="form-floating mb-3">
+			<input type="text" class="form-control" id="petName" name="petName" placeholder="Bobi"
+				aria-describedby="petNameLabel" required value="{{ pet_name|default:'' }}">
+			<label for="petName" id="petNameLabel">Nome</label>
+		</div>
+		<div id="petImageUrlsFakeInputs">
+		</div>
+		<textarea class="d-none" name="petImageUrls" required></textarea>
+	</form>
+	<script src="{% static 'DEIPet/scripts/create_pet.js' %}"></script>
+</div>
+{% endblock %}
