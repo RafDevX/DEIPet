@@ -13,8 +13,10 @@
 			<label for="petName" id="petNameLabel">Nome</label>
 		</div>
 		<div id="petImageUrlsFakeInputs">
+			<label id="petImageUrlsLabel">URLs de Imagens</label>
+			<textarea class="d-none" name="petImageUrls" id="petImageUrlsRealInput"
+				required>{{ pet_image_urls|default:''|join:newline }}</textarea>
 		</div>
-		<textarea class="d-none" name="petImageUrls" required></textarea>
 	</form>
 	<script src="{% static 'DEIPet/scripts/create_pet.js' %}"></script>
 </div>

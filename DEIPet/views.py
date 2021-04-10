@@ -48,7 +48,7 @@ def pet_info(request: HttpRequest, id: int):
 def create_pet(request: HttpRequest) -> HttpResponse:
     "Show a page with a form to create a new pet and handle responses to it."
 
-    error_msg, pet_name = None, None
+    error_msg, pet_name, pet_image_urls = None, "", ["a", "b", "c"]
 
     return render(
         request,
@@ -56,5 +56,7 @@ def create_pet(request: HttpRequest) -> HttpResponse:
         {
             "error_msg": error_msg,
             "pet_name": pet_name,
+            "pet_image_urls": pet_image_urls,
+            "newline": "\n",
         },
     )
