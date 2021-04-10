@@ -1,76 +1,69 @@
+{% extends 'DEIPet/base.html' %}
 {% load static %}
 
-<!DOCTYPE HTML>
-<html lang="pt_PT">
+{% block head %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="{% static 'DEIPet/favicon/favicon.ico' %}">
+<link rel="icon" type="image/png" sizes="512x512" href="{% static 'DEIPet/favicon/android-chrome-512x512.png' %}">
+<link rel="icon" type="image/png" sizes="192x192" href="{% static 'DEIPet/favicon/android-chrome-192x192.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'DEIPet/favicon/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'DEIPet/favicon/favicon-16x16.png' %}">
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'DEIPet/favicon/apple-touch-icon.png' %}">
+<meta name="msapplication-TileColor" content="#009bde">
+<meta name="msapplication-TileImage" content="{% static 'DEIPet/favicon/android-chome-192x192.png' %}">
+<meta name="theme-color" content="#009bde">
 
-	<link rel="icon" href="{% static 'DEIPet/favicon/favicon.ico' %}">
-	<link rel="icon" type="image/png" sizes="512x512" href="{% static 'DEIPet/favicon/android-chrome-512x512.png' %}">
-	<link rel="icon" type="image/png" sizes="192x192" href="{% static 'DEIPet/favicon/android-chrome-192x192.png' %}">
-	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'DEIPet/favicon/favicon-32x32.png' %}">
-	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'DEIPet/favicon/favicon-16x16.png' %}">
-	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'DEIPet/favicon/apple-touch-icon.png' %}">
-	<meta name="msapplication-TileColor" content="#009bde">
-	<meta name="msapplication-TileImage" content="{% static 'DEIPet/favicon/android-chome-192x192.png' %}">
-	<meta name="theme-color" content="#009bde">
+<link rel="manifest" href="{% static 'DEIPet/manifest.webmanifest' %}">
 
-	<link rel="manifest" href="{% static 'DEIPet/manifest.webmanifest' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<link href="{% static 'DEIPet/style/main.css' %}" rel="stylesheet">
+{% endblock %}
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-	<link href="{% static 'DEIPet/style/main.css' %}" rel="stylesheet">
-
-	<title>{% block title %}{% endblock %} | DEIPet
-	</title>
-</head>
-
-<body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand h1" href="{% url 'DEIPet:index' %}">
-					<img src="{% static 'DEIPet/images/logo.png' %}" alt="" class="d-inline-block align-text-center">
-					DEIPet
-				</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navbarNav"
-					aria-controls="navbarNav" aria-expanded="false" aria-label="Navegação">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-			</div>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					{% with url_name=request.resolver_match.url_name %}
-					{# unfortunately can't make this a loop as django doesn't support in-template definition of lists #}
-					<li class="nav-item">
-						<a class="nav-link{% if url_name == 'list-pets' or url_name == 'list-pets-start' %} active{% endif %}"
-							href="{% url 'DEIPet:list-pets-start' %}">
-							Animais de Estimação
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link{% if url_name == 'create-pet' %} active{% endif %}"
-							href="{% url 'DEIPet:create-pet' %}">
-							Adicionar Animal
-						</a>
-					</li>
-					{% endwith %}
-				</ul>
-			</div>
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand h1" href="{% url 'DEIPet:index' %}">
+				<img src="{% static 'DEIPet/images/logo.png' %}" alt="" class="d-inline-block align-text-center">
+				DEIPet
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Navegação">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 		</div>
-	</nav>
-
-	<div class="main-content mx-3 text-center">
-		<h1>{% block content_title %}{% endblock %}</h1>
-		{% block content %}{% endblock %}
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				{% with url_name=request.resolver_match.url_name %}
+				{# unfortunately can't make this a loop as django doesn't support in-template definition of lists #}
+				<li class="nav-item">
+					<a class="nav-link{% if url_name == 'list-pets' or url_name == 'list-pets-start' %} active{% endif %}"
+						href="{% url 'DEIPet:list-pets-start' %}">
+						Animais de Estimação
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link{% if url_name == 'create-pet' %} active{% endif %}"
+						href="{% url 'DEIPet:create-pet' %}">
+						Adicionar Animal
+					</a>
+				</li>
+				{% endwith %}
+			</ul>
+		</div>
 	</div>
+</nav>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
-	</script>
-	<script src="{% static 'DEIPet/scripts/main.js' %}"></script>
-</body>
+<div class="main-content mx-3 text-center">
+	<h1>{% block title %}{% endblock %}</h1>
+	{% block content %}{% endblock %}
+</div>
 
-</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+</script>
+<script src="{% static 'DEIPet/scripts/main.js' %}"></script>
+{% endblock %}

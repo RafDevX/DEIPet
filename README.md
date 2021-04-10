@@ -31,6 +31,8 @@ _Não está apto para produção, por motivos evidentes._
 
 -   De notar que alguns animais podem aparecer repetidos em páginas diferentes pelo que APARENTA<sup id="a2">[2](#fn2)</sup> ser um lapso na implementação da Petstore: o parâmetro `offset` afeta os IDs e não o número real de animais existentes, não contemplando que alguns IDs podem ter sido apagados. Por exemplo, havendo animais com IDs `[0 1 2 3 50]` (tendo os animais `4-49` sendo apagados), o `#50` é listado tanto com `(limit=20, offset=0)` (primeira página) como com `(limit=20, offset=20)` (segunda página).
 
+-   Por limitação do próprio sistema de _templates_, não é possível usar o mesmo _block_ "title" duas vezes (`<title />` e `<h1 />`). Para evitar repetição, portanto, o _template_ estrutural foi separado em `base.html` e `layout.html`, sendo o primeiro extremamente básico mas havendo assim uma _workaround_ para esta limitação. Como bonus, o código fica (discutivelmente) melhor organizado.
+
 ---
 
 <b id="fn1"><sup>1</sup></b> Visto esta ser a única aplicação, para efeitos de conveniência, foi tomada a liberdade de criar um _redirect_, pelo que basta aceder ao endereço [http://127.0.0.1:8000]() sem qualquer _path_. [↩](#a1)
