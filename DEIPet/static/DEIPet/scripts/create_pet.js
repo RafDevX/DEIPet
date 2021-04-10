@@ -5,10 +5,17 @@ document.addEventListener("DOMContentLoaded", () => {
 	const container = document.getElementById("petImageUrlsContainer");
 	const textarea = document.getElementById("petImageUrlsRealInput");
 	const submitBtn = document.getElementById("createPetSubmitBtn");
+
 	const addPetImageBtn = document.getElementById("addPetImageBtn");
 	const addPetImageModal = new bootstrap.Modal(
 		document.getElementById("addPetImageModal")
 	);
+	const addPetImageUrl = document.getElementById("addPetImageUrl");
+	const addPetImageSubmitBtn = document.getElementById(
+		"addPetImageSubmitBtn"
+	);
+	const addPetImageFile = document.getElementById("addPetImageFile");
+
 	const actual_images = [];
 	const tooltips = [];
 	let busy = true;
@@ -37,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	function tryAddImage(url) {
 		try {
 			url = url.trim();
-			if (url && (url = new URL(url)) && url.protocol != "javascript") {
+			if (url && (url = new URL(url)) && url.protocol != "javascript:") {
 				images.push(url.href);
 				return true;
 			}
@@ -146,11 +153,74 @@ document.addEventListener("DOMContentLoaded", () => {
 		submitBtn.disabled = !form.checkValidity();
 	}
 
+	function btnFeedback(btn, txt, cls, middleCallback) {
+		const initialTxt = btn.innerText;
+		const initialDis = btn.disabled;
+		btn.disabled = true;
+		btn.classList.add(cls);
+		btn.classList.remove("btn-primary");
+		btn.innerText = txt;
+		setTimeout(() => {
+			if (middleCallback) middleCallback();
+			setTimeout(() => {
+				btn.classList.add("btn-primary");
+				btn.classList.remove(cls);
+				btn.innerText = initialTxt;
+				btn.disabled = initialDis;
+			}, 500);
+		}, 500);
+	}
+
 	form.addEventListener("submit", () => {
 		window.onbeforeunload = null;
 	});
 
 	addPetImageBtn.addEventListener("click", () => {
 		addPetImageModal.show();
+	});
+
+	addPetImageUrl.addEventListener("input", () => {
+		addPetImageSubmitBtn.disabled = !addPetImageUrl.checkValidity();
+	});
+
+	addPetImageSubmitBtn.addEventListener("click", () => {
+		if (tryAddImage(addPetImageUrl.value)) {
+			rebuildContainer();
+			addPetImageUrl.value = "";
+			btnFeedback(
+				addPetImageSubmitBtn,
+				"Adicionado!",
+				"btn-success",
+				() => addPetImageModal.hide()
+			);
+		} else {
+			btnFeedback(addPetImageSubmitBtn, "Inválido!", "btn-danger");
+		}
+	});
+
+	addPetImageFile.addEventListener("change", () => {
+		addPetImageFile.classList.remove("text-danger");
+		if (addPetImageFile.files.length) {
+			file = addPetImageFile.files[0];
+			if (file.type.match(/^image\/.+$/) && file.size <= 1e6) {
+				const reader = new FileReader();
+				reader.addEventListener("load", () => {
+					if (tryAddImage(reader.result)) {
+						rebuildContainer();
+						addPetImageFile.classList.add("text-success");
+						setTimeout(() => {
+							addPetImageModal.hide();
+							addPetImageFile.value = null;
+							addPetImageFile.classList.remove("text-success");
+						}, 500);
+					} else {
+						addPetImageFile.classList.add("text-danger");
+					}
+				});
+				reader.readAsDataURL(file);
+			} else {
+				addPetImageFile.classList.add("text-danger");
+			}
+		}
 	});
 });
