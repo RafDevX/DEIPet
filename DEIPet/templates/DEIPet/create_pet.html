@@ -4,7 +4,7 @@
 {% block title %}Adicionar Novo Animal{% endblock %}
 
 {% block content %}
-<form method="post" action="{% url 'DEIPet:create-pet' %}" autocomplete="off">
+<form id="createPetForm" method="post" action="{% url 'DEIPet:create-pet' %}" autocomplete="off">
 	<div class="d-flex justify-content-center mb-3">
 		<div class="form-floating w-auto">
 			<input type="text" class="form-control w-auto" id="petName" name="petName" placeholder="Bobi"
@@ -18,6 +18,15 @@
 			aria-describedby="petImageUrlsLabel">{{ pet_image_urls|default:''|join:newline }}</textarea>
 		<div class="container-md border border-light border-3 rounded shadow">
 			<div id="petImageUrlsContainer" class="row row-cols-2 row-cols-md-4 row-cols-lg-6 justify-content-around">
+			</div>
+		</div>
+		<div class="row justify-content-around mt-3">
+			<div class="col">
+				<button type="button" class="btn btn-success">Adicionar Imagem</button>
+			</div>
+			<div class="col">
+				<a href="{% url 'DEIPet:index' %}" class="link-danger me-2">Cancelar</a>
+				<button type="submit" id="createPetSubmitBtn" class="btn btn-primary">Criar Animal</button>
 			</div>
 		</div>
 	</div>

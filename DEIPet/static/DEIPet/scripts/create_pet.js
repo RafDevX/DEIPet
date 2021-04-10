@@ -1,21 +1,25 @@
 /* Logic for making the create pet form more user friendly */
 
 document.addEventListener("DOMContentLoaded", () => {
+	const form = document.getElementById("createPetForm");
 	const container = document.getElementById("petImageUrlsContainer");
 	const textarea = document.getElementById("petImageUrlsRealInput");
+	const submitBtn = document.getElementById("createPetSubmitBtn");
 	const actual_images = [];
 	const tooltips = [];
 	let busy = true;
 
+	window.onbeforeunload = () => true;
+
 	const images = new Proxy(actual_images, {
 		deleteProperty: function (target, prop) {
 			delete target[prop];
-			updateTextarea();
+			updateForm();
 			return true;
 		},
 		set: function (target, prop, val) {
 			target[prop] = val;
-			updateTextarea();
+			updateForm();
 			return true;
 		},
 	});
@@ -43,8 +47,16 @@ document.addEventListener("DOMContentLoaded", () => {
 			await t.dispose();
 		}
 		container.textContent = "";
-		for (let i = 0; i < images.length; i++) {
-			await createCard(i);
+		if (images.length) {
+			for (let i = 0; i < images.length; i++) {
+				await createCard(i);
+			}
+		} else {
+			const p = document.createElement("p");
+			p.className = "text-muted fst-italic w-100 m-3";
+			p.innerText =
+				"Por favor adicione pelo menos uma imagem usando o botão abaixo.";
+			container.appendChild(p);
 		}
 	}
 
@@ -58,9 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		img.className = "card-img-top";
 		img.alt = `#${i + 1}`;
 		const body = document.createElement("div");
-		body.className = "card-body";
+		body.className = "card-body d-flex";
 		const btngroup = document.createElement("div");
-		btngroup.className = "btn-group highlight-middle-btn";
+		btngroup.className = "btn-group highlight-middle-btn mt-auto mx-auto";
 		btngroup.role = "group";
 		for (let j = 0; j < 3; j++) {
 			const btn = document.createElement("button");
@@ -125,7 +137,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		container.appendChild(col);
 	}
 
-	function updateTextarea() {
+	function updateForm() {
 		textarea.value = images.join("\n");
+		submitBtn.disabled = !form.checkValidity(); //!images.length;
 	}
+
+	form.addEventListener("submit", () => {
+		window.onbeforeunload = null;
+	});
 });
