@@ -22,7 +22,7 @@
 		</div>
 		<div class="row justify-content-around mt-3">
 			<div class="col">
-				<button type="button" class="btn btn-success">Adicionar Imagem</button>
+				<button type="button" class="btn btn-success" id="addPetImageBtn">Adicionar Imagem</button>
 			</div>
 			<div class="col">
 				<a href="{% url 'DEIPet:index' %}" class="link-danger me-2">Cancelar</a>
@@ -31,5 +31,18 @@
 		</div>
 	</div>
 </form>
+<div class="modal fade" id="addPetImageModal" tabindex="-1" aria-hidden="true" aria-labelledby="addPetImageModalLabel">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="addPetImageModalLabel">Adicionar Imagem</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button></button>
+			</div>
+			<div class="modal-body">
+				Hello!
+			</div>
+		</div>
+	</div>
+</div>
 <script src="{% static 'DEIPet/scripts/create_pet.js' %}"></script>
 {% endblock %}

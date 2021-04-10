@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	const container = document.getElementById("petImageUrlsContainer");
 	const textarea = document.getElementById("petImageUrlsRealInput");
 	const submitBtn = document.getElementById("createPetSubmitBtn");
+	const addPetImageBtn = document.getElementById("addPetImageBtn");
+	const addPetImageModal = new bootstrap.Modal(
+		document.getElementById("addPetImageModal")
+	);
 	const actual_images = [];
 	const tooltips = [];
 	let busy = true;
@@ -92,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				"✖": "Apagar Imagem",
 				"❱": "Para a Direita",
 			}[btn.innerText];
-			tooltips.push(new bootstrap.Tooltip(btn, { trigger: "hover" }));
+			tooltips.push(new bootstrap.Tooltip(btn));
 			if (btn.innerText != "★") {
 				btn.addEventListener(
 					"click",
@@ -139,10 +143,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function updateForm() {
 		textarea.value = images.join("\n");
-		submitBtn.disabled = !form.checkValidity(); //!images.length;
+		submitBtn.disabled = !form.checkValidity();
 	}
 
 	form.addEventListener("submit", () => {
 		window.onbeforeunload = null;
+	});
+
+	addPetImageBtn.addEventListener("click", () => {
+		addPetImageModal.show();
 	});
 });
