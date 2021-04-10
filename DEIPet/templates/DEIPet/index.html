@@ -22,7 +22,7 @@
 			</thead>
 			<tbody>
 				{% for pet in pets %}
-				<tr class="fake-anchor" data-fa-href="https://google.com">
+				<tr class="fake-anchor" data-fa-href={% url 'DEIPet:pet-info' pet.id %}>
 					<th scope="row">{{ pet.id }}</th>
 					<td>{{ pet.name }}</td>
 					<td>

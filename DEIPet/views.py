@@ -35,5 +35,9 @@ def list_pets(request: HttpRequest, page=1, pg_size=30) -> HttpResponse:
     )
 
 
+def pet_info(request: HttpRequest, id: int):
+    return HttpResponse("hello")
+
+
 def create_pet(request: HttpRequest) -> HttpResponse:
     return HttpResponse("hi")
