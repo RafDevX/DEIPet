@@ -4,11 +4,14 @@
 {% block title %}Adicionar Novo Animal{% endblock %}
 
 {% block content %}
+{% if error_msg %}
+<div class="alert alert-danger d-inline-block" role="alert">{{ error_msg }}</div>
+{% endif %}
 <form id="createPetForm" method="post" action="{% url 'DEIPet:create-pet' %}" autocomplete="off">
 	<div class="d-flex justify-content-center mb-3">
 		<div class="form-floating w-auto">
 			<input type="text" class="form-control w-auto" id="petName" name="petName" placeholder="Bobi"
-				aria-describedby="petNameLabel" required value="{{ pet_name|default:'' }}">
+				aria-describedby="petNameLabel" autofocus required value="{{ pet_name|default:'' }}">
 			<label for="petName" id="petNameLabel">Nome</label>
 		</div>
 	</div>
@@ -26,7 +29,7 @@
 			</div>
 			<div class="col">
 				<a href="{% url 'DEIPet:index' %}" class="link-danger me-2">Cancelar</a>
-				<button type="submit" id="createPetSubmitBtn" class="btn btn-primary">Criar Animal</button>
+				<button type="submit" disabled id="createPetSubmitBtn" class="btn btn-primary">Criar Animal</button>
 			</div>
 		</div>
 	</div>

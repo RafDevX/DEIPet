@@ -1,7 +1,7 @@
 """View controllers for the DEIPet application"""
 
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.templatetags.static import static
 
 from . import petstore, aux
@@ -56,11 +56,19 @@ def pet_info(request: HttpRequest, id: int):
 def create_pet(request: HttpRequest) -> HttpResponse:
     "Show a page with a form to create a new pet and handle responses to it."
 
-    error_msg, pet_name, pet_image_urls = (
-        None,
-        "",
-        [pet["imageUrls"][0] for pet in petstore.get_pets()],
-    )
+    error_msg, pet_name, pet_image_urls = (None, "", [])
+
+    if request.POST and "petName" in request.POST and "petImageUrls" in request.POST:
+        pet_name = request.POST["petName"]
+        pet_image_urls = request.POST["petImageUrls"].splitlines()
+        if len(pet_image_urls) < 2:
+            error_msg = "É obrigatório incluir pelo menos duas imagens!"
+        else:
+            try:
+                new_pet = petstore.create_pet(pet_name, pet_image_urls)
+                return redirect("DEIPet:pet-info", id=new_pet["id"])
+            except petstore.PetstoreError:
+                error_msg = "Ocorreu um erro a criar o animal de estimação. Por favor tente novamente."
 
     return render(
         request,
