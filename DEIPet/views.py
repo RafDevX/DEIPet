@@ -18,7 +18,7 @@ def list_pets(request: HttpRequest, page=1, pg_size=30) -> HttpResponse:
     next_page_exists = len(pets) > pg_size
     pets = pets[:-1]
 
-    # don't cut the page range at the beginning for a single number
+    # don't cut the page range at the beginning for a single number (1 ... 3 4)
     pg_range = range(page - 2 if page >= 6 else 1, page + 1)
 
     return render(
