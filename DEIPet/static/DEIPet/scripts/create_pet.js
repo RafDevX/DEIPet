@@ -1,7 +1,7 @@
 /* Logic for making the create pet form more user friendly */
 
 do {
-	/* new block just for scope */
+	/* new block just for scope, allows shorter names */
 	const div = document.getElementById("petImageUrlsFakeInputs");
 	const textarea = document.getElementById("petImageUrlsRealInput");
 	const inputs = [];

@@ -44,6 +44,7 @@ def list_pets(request: HttpRequest, page=1, pg_size=30) -> HttpResponse:
             "prev_page_exists": prev_page_exists,
             "next_page_exists": next_page_exists,
             "pg_range": pg_range,
+            "pg_size_opts": range(10, 60, 10),
         },
     )
 
