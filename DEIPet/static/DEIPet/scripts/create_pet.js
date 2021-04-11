@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	addPetImageFile.addEventListener("change", () => {
 		addPetImageFile.classList.remove("text-danger");
 		if (addPetImageFile.files.length) {
-			file = addPetImageFile.files[0];
+			const file = addPetImageFile.files[0];
 			if (file.type.match(/^image\/.+$/) && file.size <= 1e6) {
 				const reader = new FileReader();
 				reader.addEventListener("load", () => {
