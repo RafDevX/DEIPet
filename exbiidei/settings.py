@@ -2,7 +2,7 @@
 
 import os
 
-DEBUG = True  # False
+DEBUG = False
 ALLOWED_HOSTS = [".localhost", "127.0.0.1", "[::1]"]
 
 SECRET_KEY = "eZD1a/GdFH2gIaKnqeAXgBtZZrwVoqA84mtJ6ZdUaZvjjECb6rdWSNAWTx1sHAYK"

@@ -7,5 +7,3 @@ urlpatterns = [
     path("", lambda r: redirect("deipet/"), name="index"),
     path("deipet/", include("DEIPet.urls")),
 ]
-
-# TODO: handler404, etc
