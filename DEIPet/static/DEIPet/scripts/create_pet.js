@@ -87,60 +87,50 @@ document.addEventListener("DOMContentLoaded", () => {
 		const btngroup = document.createElement("div");
 		btngroup.className = "btn-group highlight-middle-btn mt-auto mx-auto";
 		btngroup.role = "group";
-		for (let j = 0; j < 3; j++) {
+		for (let j = 0; j < 4; j++) {
 			const btn = document.createElement("button");
 			btn.type = "button";
 			btn.className =
 				"btn btn-outline-" +
 				[
-					i > 0 ? "secondary" : "primary disabled",
+					"secondary" + (i == 0 ? " disabled" : ""),
+					"primary" + (i == 0 ? " disabled" : ""),
 					"danger",
 					"secondary" + (i + 1 == images.length ? " disabled" : ""),
 				][j];
-			btn.innerText = [i > 0 ? "❰" : "★", "✖", "❱"][j];
+			btn.innerText = ["❰", "★", "✖", "❱"][j];
 			//btn.dataset.bsToggle = "tooltip";
 			btn.title = {
-				"★": "Imagem Principal",
 				"❰": "Para a Esquerda",
+				"★": "Definir como Principal",
 				"✖": "Apagar Imagem",
 				"❱": "Para a Direita",
 			}[btn.innerText];
 			tooltips.push(new bootstrap.Tooltip(btn));
-			if (btn.innerText != "★") {
-				btn.addEventListener(
-					"click",
-					{
-						"❰": async () => {
-							if (busy) return;
-							busy = true;
-							[images[i], images[i - 1]] = [
+			btn.addEventListener(
+				"click",
+				async () => {
+					if (busy) return;
+					busy = true;
+					await {
+						"❰": async () =>
+							([images[i], images[i - 1]] = [
 								images[i - 1],
 								images[i],
-							];
-							await rebuildContainer();
-							busy = false;
-						},
-						"❱": async () => {
-							if (busy) return;
-							busy = true;
-							[images[i], images[i + 1]] = [
+							]),
+						"★": async () => images.unshift(images.splice(i, 1)[0]),
+						"✖": async () => images.splice(i, 1),
+						"❱": async () =>
+							([images[i], images[i + 1]] = [
 								images[i + 1],
 								images[i],
-							];
-							await rebuildContainer();
-							busy = false;
-						},
-						"✖": async () => {
-							if (busy) return;
-							busy = true;
-							images.splice(i, 1);
-							await rebuildContainer();
-							busy = false;
-						},
-					}[btn.innerText],
-					{ passive: true, once: true }
-				);
-			}
+							]),
+					}[btn.innerText]();
+					await rebuildContainer();
+					busy = false;
+				},
+				{ passive: true, once: true }
+			);
 			btngroup.appendChild(btn);
 		}
 		body.appendChild(btngroup);
@@ -192,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (tryAddImage(addPetImageUrl.value)) {
 			rebuildContainer();
 			addPetImageUrl.value = "";
+			addPetImageSubmitBtn.disabled = true;
 			btnFeedback(
 				addPetImageSubmitBtn,
 				"Adicionado!",

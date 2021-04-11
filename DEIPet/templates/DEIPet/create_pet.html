@@ -17,10 +17,13 @@
 	</div>
 	<div>
 		<label id="petImageUrlsLabel">Imagens</label>
+		<p class="small fst-italic">A primeira imagem é a imagem principal do animal de estimação que será destacada na
+			listagem.</p>
 		<textarea class="d-none" name="petImageUrls" id="petImageUrlsRealInput" required
 			aria-describedby="petImageUrlsLabel">{{ pet_image_urls|default:''|join:newline }}</textarea>
 		<div class="container-md border border-light border-3 rounded shadow">
-			<div id="petImageUrlsContainer" class="row row-cols-2 row-cols-md-4 row-cols-lg-6 justify-content-around">
+			<div id="petImageUrlsContainer"
+				class="row row-cols-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5 justify-content-around">
 			</div>
 		</div>
 		<div class="row justify-content-around mt-3">
