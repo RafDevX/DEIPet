@@ -1,5 +1,7 @@
 # Exercício de Candidatura à Bolsa de Iniciação à Investigação do DEI (BL38/2021)
 
+Rafael Serra e Oliveira, abril 2021
+
 Ver o [enunciado](/enunciado.md) para a especificação.
 
 ### Instalar Dependências
