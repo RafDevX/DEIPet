@@ -18,6 +18,5 @@ urlpatterns = [
 
 # TODO: handler404
 # TODO: page size should go to page 1 or stay?
-# TODO: required/validation in create_pet.html
-# TODO: two images required
+# TODO: grid option?
 # TODO: "clique num deles para ver detalhes"?

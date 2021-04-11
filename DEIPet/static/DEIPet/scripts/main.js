@@ -1,5 +1,7 @@
 /* General client-side handling */
 
+"use strict";
+
 for (const el of document.querySelectorAll(".fake-anchor")) {
 	el.addEventListener(
 		"click",

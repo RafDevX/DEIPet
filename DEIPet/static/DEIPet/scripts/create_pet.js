@@ -1,5 +1,7 @@
 /* Logic for making the create pet form more user friendly */
 
+"use strict";
+
 document.addEventListener("DOMContentLoaded", () => {
 	const form = document.getElementById("createPetForm");
 	const container = document.getElementById("petImageUrlsContainer");
