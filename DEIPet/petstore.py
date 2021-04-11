@@ -28,10 +28,10 @@ def get_pets(limit: int = 30, offset: int = 0) -> list[dict]:
     raise PetstoreError
 
 
-def get_pets_page(page: int, page_size: int) -> list[dict]:
+def get_pets_page(page: int, page_size: int, one_more: bool = False) -> list[dict]:
     """Shorthand to fetch a specific page of pets from the Petstore."""
 
-    return get_pets(page_size, page_size * (page - 1))
+    return get_pets(page_size + int(one_more), page_size * (page - 1))
 
 
 def create_pet(name: str, imageUrls: list[str]) -> dict:

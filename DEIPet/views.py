@@ -19,7 +19,7 @@ def list_pets(request: HttpRequest, page=1, pg_size=30) -> HttpResponse:
 
     # get an extra item to see if next page exists
     try:
-        pets = petstore.get_pets_page(page, pg_size + 1)
+        pets = petstore.get_pets_page(page, pg_size, one_more=True)
         prev_page_exists = page > 1
         if len(pets) > pg_size:
             next_page_exists = True
