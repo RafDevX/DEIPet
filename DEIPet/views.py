@@ -52,13 +52,44 @@ def list_pets(request: HttpRequest, page=1, pg_size=30) -> HttpResponse:
 
 
 def pet_info(request: HttpRequest, id: int, status: Optional[str] = None):
-    return HttpResponse("hello")
+    """Show a page that displays a specific pet's details."""
+
+    success_msg, error_msg, not_found = None, None, False
+
+    if status == "added":
+        success_msg = "Animal de estimação adicionado com sucesso!"
+    elif status == "failed-to-delete":
+        error_msg = "Não foi possível eliminar o animal de estimação. Por favor tente mais tarde."
+
+    fallback_image = static("DEIPet/images/fallback.png")
+
+    try:
+        pet = petstore.get_pet_info(id)
+        pet["imageUrls"] = aux.filter_url_list(pet["imageUrls"], fallback_image)
+    except petstore.PetstoreError:
+        error_msg = "Animal de estimação não encontrado."
+        pet = {"id": -1, "name": "Não Encontrado", "imageUrls": []}
+        not_found = True
+
+    return render(
+        request,
+        "DEIPet/pet_info.html",
+        {
+            "success_msg": success_msg,
+            "error_msg": error_msg,
+            "not_found": not_found,
+            "pet_id": pet["id"],
+            "pet_name": pet["name"],
+            "pet_image_urls": pet["imageUrls"],
+            "pet_details": [("ID", pet["id"]), ("Nome", pet["name"])],
+        },
+    )
 
 
 def create_pet(request: HttpRequest) -> HttpResponse:
     "Show a page with a form to create a new pet and handle responses to it."
 
-    error_msg, pet_name, pet_image_urls = (None, "", [])
+    error_msg, pet_name, pet_image_urls = None, "", []
 
     if request.POST and "petName" in request.POST and "petImageUrls" in request.POST:
         pet_name = request.POST["petName"]
@@ -84,3 +115,14 @@ def create_pet(request: HttpRequest) -> HttpResponse:
             "newline": "\n",
         },
     )
+
+
+def delete_pet(request: HttpRequest, id: int) -> HttpResponse:
+    """Handle delete requests and show confirmation."""
+
+    try:
+        petstore.delete_pet(id)
+        return render(request, "DEIPet/delete_pet.html", {"pet_id": id})
+    except petstore.PetstoreError:
+        pass
+    return redirect("DEIPet:pet-info-postaction", id=id, status="failed-to-delete")
