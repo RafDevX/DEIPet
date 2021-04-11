@@ -15,8 +15,3 @@ urlpatterns = [
     path("pet/<int:id>/delete", views.delete_pet, name="delete-pet"),
     path("pet/<int:id>/<str:status>", views.pet_info, name="pet-info-postaction"),
 ]
-
-# TODO: handler404
-# TODO: page size should go to page 1 or stay?
-# TODO: grid option?
-# TODO: "clique num deles para ver detalhes"?

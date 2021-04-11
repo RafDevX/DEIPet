@@ -106,7 +106,7 @@
 		<span class="col-auto">Mostrar</span>
 		<select class="form-select w-auto col-auto" id="pageSizeSelect">
 			{% for opt in pg_size_opts %}
-			<option data-new-url="{% url 'DEIPet:list-pets' page opt %}" value="{{ opt }}"
+			<option data-new-url="{% url 'DEIPet:list-pets' 1 opt %}" value="{{ opt }}"
 				{% if opt == pg_size %}selected{% endif %}>{{ opt }}</option>
 			{% endfor %}
 		</select>

@@ -99,7 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
 					"secondary" + (i + 1 == images.length ? " disabled" : ""),
 				][j];
 			btn.innerText = ["❰", "★", "✖", "❱"][j];
-			//btn.dataset.bsToggle = "tooltip";
 			btn.title = {
 				"❰": "Para a Esquerda",
 				"★": "Definir como Principal",
