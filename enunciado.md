@@ -26,6 +26,6 @@ Boa Sorte!
 
 Nota: Durante os testes da adição de novos *pets* pedimos que seja responsável nos nomes e imagens utilizadas.
 
-[1]: https://example.com/swagger-ui
+[1]: https://example.com/ 
 [2]: https://www.djangoproject.com/
 [3]: https://docs.djangoproject.com/en/3.1/intro/tutorial01/

@@ -7,7 +7,7 @@ ALLOWED_HOSTS = [".localhost", "127.0.0.1", "[::1]"]
 
 SECRET_KEY = "eZD1a/GdFH2gIaKnqeAXgBtZZrwVoqA84mtJ6ZdUaZvjjECb6rdWSNAWTx1sHAYK"
 
-PETSTORE_BASE_URL = "https://example.com"
+PETSTORE_BASE_URL = os.getenv("PETSTORE_BASE_URL", "https://example.com")
 PETSTORE_ENDPOINTS = {
     "get_pets": "/pets",
     "create_pet": "/pets",
